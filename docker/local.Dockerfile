@@ -22,4 +22,4 @@ COPY --from=builder /build/build/libs/*.jar app.jar
 
 EXPOSE 28080
 
-ENTRYPOINT ["java", "-Xms256m", "-Xmx512m", "-jar", "app.jar", "--spring.profiles.active=local"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=local"]
