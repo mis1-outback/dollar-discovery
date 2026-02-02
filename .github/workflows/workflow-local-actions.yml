@@ -26,4 +26,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/dollar-discovery:local
-            ${{ secrets.DOCKER_PASSWORD }}/dollar-discovery:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/dollar-discovery:${{ github.sha }}
