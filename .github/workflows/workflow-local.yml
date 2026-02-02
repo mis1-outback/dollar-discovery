@@ -1,0 +1,29 @@
+name: Docker Image Build and Push
+run-name: running workflow-local.yml
+on:
+  push:
+    branches:
+      - test-cej
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Image Build
+        run: docker build -f docker/local.Dockerfile -t dollar-discovery:${{ github.sha }} .
+
+      - name: Docker Image Tag
+        run: docker tag dollar-discovery:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/dollar-discovery:local
+
+      - name: Docker Image Build
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/dollar-discovery:local
